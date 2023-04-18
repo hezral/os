@@ -28,7 +28,7 @@ mkdir -p "${basedir}"
 cd "${basedir}"
 
 # Bootstrap an ubuntu minimal system
-debootstrap --foreign --arch $architecture $codename elementary-$architecture http://ports.ubuntu.com/ubuntu-ports
+debootstrap --binary-images iso-hybrid --foreign --arch $architecture $codename elementary-$architecture http://ports.ubuntu.com/ubuntu-ports
 
 # Add the QEMU emulator for running ARM executables
 cp /usr/bin/qemu-arm-static elementary-$architecture/usr/bin/
@@ -237,29 +237,29 @@ cd "${basedir}"
 md5sum "${imagename}.img.xz" | tee "${imagename}.md5.txt"
 sha256sum "${imagename}.img.xz" | tee "${imagename}.sha256.txt"
 
-cd "${rootdir}"
+# cd "${rootdir}"
 
-KEY="$1"
-SECRET="$2"
-ENDPOINT="$3"
-BUCKET="$4"
-IMGPATH="${basedir}"/${imagename}.img.xz
-IMGNAME=${channel}-rpi/$(basename "$IMGPATH")
+# KEY="$1"
+# SECRET="$2"
+# ENDPOINT="$3"
+# BUCKET="$4"
+# IMGPATH="${basedir}"/${imagename}.img.xz
+# IMGNAME=${channel}-rpi/$(basename "$IMGPATH")
 
-apt-get install -y curl python3 python3-distutils
+# apt-get install -y curl python3 python3-distutils
 
-curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-python3 get-pip.py
-pip install boto3
+# curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+# python3 get-pip.py
+# pip install boto3
 
-python3 upload.py "$KEY" "$SECRET" "$ENDPOINT" "$BUCKET" "$IMGPATH" "$IMGNAME" || exit 1
+# python3 upload.py "$KEY" "$SECRET" "$ENDPOINT" "$BUCKET" "$IMGPATH" "$IMGNAME" || exit 1
 
-CHECKSUMPATH="${basedir}"/${imagename}.md5.txt
-CHECKSUMNAME=${channel}-rpi/$(basename "$CHECKSUMPATH")
+# CHECKSUMPATH="${basedir}"/${imagename}.md5.txt
+# CHECKSUMNAME=${channel}-rpi/$(basename "$CHECKSUMPATH")
 
-python3 upload.py "$KEY" "$SECRET" "$ENDPOINT" "$BUCKET" "$CHECKSUMPATH" "$CHECKSUMNAME" || exit 1
+# python3 upload.py "$KEY" "$SECRET" "$ENDPOINT" "$BUCKET" "$CHECKSUMPATH" "$CHECKSUMNAME" || exit 1
 
-CHECKSUMPATH="${basedir}"/${imagename}.sha256.txt
-CHECKSUMNAME=${channel}-rpi/$(basename "$CHECKSUMPATH")
+# CHECKSUMPATH="${basedir}"/${imagename}.sha256.txt
+# CHECKSUMNAME=${channel}-rpi/$(basename "$CHECKSUMPATH")
 
-python3 upload.py "$KEY" "$SECRET" "$ENDPOINT" "$BUCKET" "$CHECKSUMPATH" "$CHECKSUMNAME" || exit 1
+# python3 upload.py "$KEY" "$SECRET" "$ENDPOINT" "$BUCKET" "$CHECKSUMPATH" "$CHECKSUMNAME" || exit 1
