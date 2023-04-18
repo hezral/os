@@ -36,3 +36,9 @@ jobs:
       - name: Build
         run: |
           sudo ${{ matrix.configuration.script }}
+
+      # - name: Save ISO
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: elementaryos-arm64
+      #     path: elementaryos-arm64.iso

@@ -22,7 +22,7 @@ export channel="daily"
 
 version=6.1
 YYYYMMDD="$(date +%Y%m%d)"
-imagename=elementaryos-$version-$channel-rpi-$YYYYMMDD
+imagename=elementaryos-$architecture
 
 mkdir -p "${basedir}"
 cd "${basedir}"
@@ -234,6 +234,8 @@ xz -T0 -z "${basedir}/${imagename}.img"
 
 echo "Create ISO"
 mkisofs -o "${basedir}/${imagename}.iso" "${basedir}"
+
+ls "${basedir}/${imagename}.iso"
 
 cd "${basedir}"
 
