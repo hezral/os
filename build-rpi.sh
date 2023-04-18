@@ -28,7 +28,7 @@ mkdir -p "${basedir}"
 cd "${basedir}"
 
 # Bootstrap an ubuntu minimal system
-debootstrap --binary-images iso-hybrid --foreign --arch $architecture $codename elementary-$architecture http://ports.ubuntu.com/ubuntu-ports
+debootstrap --foreign --arch $architecture $codename elementary-$architecture http://ports.ubuntu.com/ubuntu-ports
 
 # Add the QEMU emulator for running ARM executables
 cp /usr/bin/qemu-arm-static elementary-$architecture/usr/bin/
@@ -231,6 +231,9 @@ losetup -d "$loopdevice"
 
 echo "Compressing ${imagename}.img"
 xz -T0 -z "${basedir}/${imagename}.img"
+
+echo "Create ISO"
+mkisofs -o "${basedir}/${imagename}.iso" "${basedir}"
 
 cd "${basedir}"
 
