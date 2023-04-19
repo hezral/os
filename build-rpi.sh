@@ -99,23 +99,23 @@ chmod +x elementary-$architecture/third-stage
 LANG=C chroot elementary-$architecture /third-stage
 
 
-# Install Raspberry Pi specific packages
-cat << EOF > elementary-$architecture/hardware
-#!/bin/bash
+# # Install Raspberry Pi specific packages
+# cat << EOF > elementary-$architecture/hardware
+# #!/bin/bash
 
-# Make a dummy folder for the boot partition so packages install properly,
-# we'll recreate it on the actual partition later
-mkdir -p /boot/firmware
+# # Make a dummy folder for the boot partition so packages install properly,
+# # we'll recreate it on the actual partition later
+# mkdir -p /boot/firmware
 
-apt-get --yes install linux-image-raspi linux-firmware-raspi2 pi-bluetooth
+# apt-get --yes install linux-image-raspi linux-firmware-raspi2 pi-bluetooth
 
-# Symlink to workaround bug with Bluetooth driver looking in the wrong place for firmware
-ln -s /lib/firmware /etc/firmware
+# # Symlink to workaround bug with Bluetooth driver looking in the wrong place for firmware
+# ln -s /lib/firmware /etc/firmware
 
-rm -rf /boot/firmware
+# rm -rf /boot/firmware
 
-rm -f hardware
-EOF
+# rm -f hardware
+# EOF
 
 chmod +x elementary-$architecture/hardware
 LANG=C chroot elementary-$architecture /hardware
@@ -135,23 +135,23 @@ done
 
 rm -r "elementary-$architecture/hooks"
 
-# Add a oneshot service to grow the rootfs on first boot
-install -m 755 -o root -g root "${rootdir}/rpi/files/resizerootfs" "elementary-$architecture/usr/sbin/resizerootfs"
-install -m 644 -o root -g root "${rootdir}/pinebookpro/files/resizerootfs.service" "elementary-$architecture/etc/systemd/system"
-mkdir -p "elementary-$architecture/etc/systemd/system/systemd-remount-fs.service.requires/"
-ln -s /etc/systemd/system/resizerootfs.service "elementary-$architecture/etc/systemd/system/systemd-remount-fs.service.requires/resizerootfs.service"
+# # Add a oneshot service to grow the rootfs on first boot
+# install -m 755 -o root -g root "${rootdir}/rpi/files/resizerootfs" "elementary-$architecture/usr/sbin/resizerootfs"
+# install -m 644 -o root -g root "${rootdir}/pinebookpro/files/resizerootfs.service" "elementary-$architecture/etc/systemd/system"
+# mkdir -p "elementary-$architecture/etc/systemd/system/systemd-remount-fs.service.requires/"
+# ln -s /etc/systemd/system/resizerootfs.service "elementary-$architecture/etc/systemd/system/systemd-remount-fs.service.requires/resizerootfs.service"
 
 
-# Support for kernel updates on the Pi 400
-cat << EOF >> elementary-$architecture/etc/flash-kernel/db
+# # Support for kernel updates on the Pi 400
+# cat << EOF >> elementary-$architecture/etc/flash-kernel/db
 
-Machine: Raspberry Pi 400 Rev 1.0
-Method: pi
-Kernel-Flavors: raspi raspi2
-DTB-Id: bcm2711-rpi-4-b.dtb
-U-Boot-Script-Name: bootscr.rpi
-Required-Packages: u-boot-tools
-EOF
+# Machine: Raspberry Pi 400 Rev 1.0
+# Method: pi
+# Kernel-Flavors: raspi raspi2
+# DTB-Id: bcm2711-rpi-4-b.dtb
+# U-Boot-Script-Name: bootscr.rpi
+# Required-Packages: u-boot-tools
+# EOF
 
 # Calculate the space to create the image.
 root_size=$(du -s -B1K elementary-$architecture | cut -f1)
@@ -209,11 +209,11 @@ EOF
 chmod +x elementary-$architecture/hardware
 LANG=C chroot elementary-$architecture /hardware
 
-# Grab some updated firmware from the Raspberry Pi foundation
-git clone -b '1.20201022' --single-branch --depth 1 https://github.com/raspberrypi/firmware raspi-firmware
-cp raspi-firmware/boot/*.elf "${basedir}/bootp/"
-cp raspi-firmware/boot/*.dat "${basedir}/bootp/"
-cp raspi-firmware/boot/bootcode.bin "${basedir}/bootp/"
+# # Grab some updated firmware from the Raspberry Pi foundation
+# git clone -b '1.20201022' --single-branch --depth 1 https://github.com/raspberrypi/firmware raspi-firmware
+# cp raspi-firmware/boot/*.elf "${basedir}/bootp/"
+# cp raspi-firmware/boot/*.dat "${basedir}/bootp/"
+# cp raspi-firmware/boot/bootcode.bin "${basedir}/bootp/"
 
 umount elementary-$architecture/dev/pts
 umount elementary-$architecture/dev/
