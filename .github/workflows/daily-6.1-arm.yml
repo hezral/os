@@ -11,16 +11,8 @@ on:
 
 jobs:
   build:
-    name: Build (${{ matrix.configuration.name }})
+    name: Build Arm
     runs-on: ubuntu-20.04
-
-    strategy:
-      matrix:
-        configuration:
-          - name: Raspberry Pi
-            script: ./build-rpi.sh
-      # Don't fail the whole workflow if one config fails
-      fail-fast: false
 
     steps:
       - name: Clean
@@ -35,7 +27,7 @@ jobs:
 
       - name: Build
         run: |
-          sudo ${{ matrix.configuration.script }}
+          sudo ./build-rpi.sh
 
       # - name: Save ISO
       #   uses: actions/upload-artifact@v3

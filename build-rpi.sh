@@ -10,7 +10,7 @@ apt-get install -y --no-install-recommends ubuntu-keyring ca-certificates deboot
 update-binfmts --enable
 
 rootdir=$(pwd)
-basedir=$(pwd)/artifacts/elementary-rpi
+basedir=$(pwd)/artifacts/elementary-arm64
 
 # Free space on rootfs in MiB
 free_space="500"
@@ -37,7 +37,7 @@ cp /usr/bin/qemu-arm-static elementary-$architecture/usr/bin/
 LANG=C chroot elementary-$architecture /debootstrap/debootstrap --second-stage
 
 # Copy Raspberry Pi specific files
-cp -r "${rootdir}"/rpi/rootfs/writable/* elementary-${architecture}/
+# cp -r "${rootdir}"/rpi/rootfs/writable/* elementary-${architecture}/
 
 # Add the rest of the ubuntu repos
 cat << EOF > elementary-$architecture/etc/apt/sources.list
