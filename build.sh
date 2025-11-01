@@ -86,6 +86,9 @@ build () {
   FNAME="elementaryos-$VERSION-$CHANNEL-$BUILD_ARCH.$YYYYMMDD$OUTPUT_SUFFIX"
   mv "$BASE_DIR/tmp/$BUILD_ARCH/live-image-$BUILD_ARCH.hybrid.iso" "$OUTPUT_DIR/${FNAME}.iso"
 
+  echo "LOOKHERE"
+  echo "$OUTPUT_DIR/${FNAME}.iso"
+
   # cd into output to so {FNAME}.sha256.txt only
   # includes the filename and not the path to
   # our file.
