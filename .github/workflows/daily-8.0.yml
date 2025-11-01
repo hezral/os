@@ -31,7 +31,7 @@ jobs:
         ./workflows.sh etc/terraform-daily-8.0-azure-${{ matrix.arch }}.conf "${{ secrets.key }}" "${{ secrets.secret }}" "${{ secrets.endpoint }}" "${{ secrets.bucket }}"
     
     - name: Upload ISO artifact
-            uses: actions/upload-artifact@v3
-            with:
-              name: built-iso
-              path: /__w/os/os/builds/arm64/elementaryos-8.0-daily-arm64.20251101.iso
+      uses: actions/upload-artifact@v3
+      with:
+        name: built-iso
+        path: /__w/os/os/builds/arm64/elementaryos-8.0-daily-arm64.20251101.iso
