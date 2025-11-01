@@ -83,7 +83,7 @@ build () {
   YYYYMMDD="$(date +%Y%m%d)"
   OUTPUT_DIR="$BASE_DIR/builds/$BUILD_ARCH"
   mkdir -p "$OUTPUT_DIR"
-  FNAME="elementaryos-$VERSION-$BUILD_ARCH.$OUTPUT_SUFFIX"
+  FNAME="elementaryos-$VERSION-$BUILD_ARCH$OUTPUT_SUFFIX"
   mv "$BASE_DIR/tmp/$BUILD_ARCH/live-image-$BUILD_ARCH.hybrid.iso" "$OUTPUT_DIR/${FNAME}.iso"
 
   echo "LOOKHERE"
