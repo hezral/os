@@ -10,8 +10,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - runner: ubuntu-24.04
-            arch: amd64
           - runner: ubuntu-24.04-arm
             arch: arm64
     runs-on: ${{ matrix.runner }}
@@ -34,4 +32,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: built-iso
-        path: /__w/os/os/builds/arm64/elementaryos-8.0-daily-arm64.20251101.iso
+        path: /__w/os/os/builds/arm64/elementaryos-8.0-arm64.iso
